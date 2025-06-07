@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 
-export const metadata = { title: 'Neues Fahrzeug anlegen' };
+
 
 const emptyVehicle = {
   brand: '',
