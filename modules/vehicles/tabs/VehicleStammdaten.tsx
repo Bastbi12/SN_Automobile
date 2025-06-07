@@ -1,0 +1,1 @@
+export default function VehicleStammdaten(){return <div>Stammdaten</div>;}

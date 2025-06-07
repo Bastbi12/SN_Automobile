@@ -1,9 +1,1 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-html { scroll-behavior: smooth; }
-
-@layer utilities {
-  .scrollbar-thin { scrollbar-width: thin; }
-}
+@tailwind base;@tailwind components;@tailwind utilities;

@@ -1,3 +1,1 @@
-export function cn(...classes: (string | undefined | false)[]) {
-  return classes.filter(Boolean).join(' ');
-}
+export function cn(...c:string[]){return c.filter(Boolean).join(' ');} 

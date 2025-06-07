@@ -1,0 +1,1 @@
+export default function CustomerStammdaten(){return <div>Kunden-Stammdaten</div>;}
