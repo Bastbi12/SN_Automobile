@@ -1,0 +1,22 @@
+[
+  {
+    "id": "1",
+    "date": "2025-06-08T10:00:00",
+    "title": "Probefahrt BMW 320d",
+    "type": "probefahrt",
+    "customer": "Petra Schmidt"
+  },
+  {
+    "id": "2",
+    "date": "2025-06-08T14:30:00",
+    "title": "Werkstatt: HU VW Golf",
+    "type": "werkstatt"
+  },
+  {
+    "id": "3",
+    "date": "2025-06-09T16:00:00",
+    "title": "Fahrzeugübergabe Audi A4",
+    "type": "übergabe",
+    "customer": "Jörg Petersen"
+  }
+]
