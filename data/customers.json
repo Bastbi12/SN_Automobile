@@ -1,0 +1,29 @@
+[
+  {
+    "id": "1",
+    "type": "käufer",
+    "firstName": "Max",
+    "lastName": "Mustermann",
+    "city": "Musterstadt",
+    "email": "max@example.com",
+    "phone": "0171 1234567"
+  },
+  {
+    "id": "2",
+    "type": "interessent",
+    "firstName": "Petra",
+    "lastName": "Schmidt",
+    "city": "Lübeck",
+    "email": "p.schmidt@example.com",
+    "phone": "0151 2345678"
+  },
+  {
+    "id": "3",
+    "type": "verkäufer",
+    "firstName": "Autohaus",
+    "lastName": "Meyer GmbH",
+    "city": "Hamburg",
+    "email": "info@meyer-auto.de",
+    "phone": "040 987654"
+  }
+]
