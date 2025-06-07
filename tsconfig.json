@@ -2,10 +2,10 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
-    "baseUrl": ".",              /* macht @/ möglich */
-    "paths": { "@/*": ["./*"] }, /* sagt: '@/irgendwas' ⇒ './irgendwas' */
+    "baseUrl": ".",              
+    "paths": { "@/*": ["./*"] }, 
     "jsx": "preserve",
-    "strict": true,
+    "strict": true
     "moduleResolution": "node",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
