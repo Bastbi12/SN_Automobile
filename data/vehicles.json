@@ -1,0 +1,35 @@
+[
+  {
+    "id": "1",
+    "brand": "VW",
+    "model": "Golf VIII 2.0 TDI",
+    "vin": "WVWZZZAUZMP123456",
+    "status": "auf_lager",
+    "margin": 2150,
+    "purchaseNet": 20000,
+    "saleNet": 25500,
+    "photoUrl": "/placeholder-car.webp"
+  },
+  {
+    "id": "2",
+    "brand": "Audi",
+    "model": "A4 Avant 40 TDI",
+    "vin": "WAUZZZF49LN012345",
+    "status": "reserviert",
+    "margin": 1900,
+    "purchaseNet": 21000,
+    "saleNet": 26000,
+    "photoUrl": "/placeholder-car.webp"
+  },
+  {
+    "id": "3",
+    "brand": "BMW",
+    "model": "320d Touring",
+    "vin": "WBA6E51090F123456",
+    "status": "verkauft",
+    "margin": 2800,
+    "purchaseNet": 22000,
+    "saleNet": 28500,
+    "photoUrl": "/placeholder-car.webp"
+  }
+]
