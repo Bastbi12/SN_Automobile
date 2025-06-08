@@ -1,23 +1,25 @@
-{import('tailwindcss').Config} */
-module.exports = {
+import type { Config } from 'tailwindcss';
+import { emerald } from 'tailwindcss/colors';
+
+export default <Config>{
   darkMode: 'class',
   content: [
-    './app/**/*.{ts,tsx,js,jsx}',
-    './components/**/*.{ts,tsx,js,jsx}',
-    './modules/**/*.{ts,tsx,js,jsx}',
+  './app/**/*.{ts,tsx,js,jsx}',      
+  './components/**/*.{ts,tsx,js,jsx}',
+  './modules/**/*.{ts,tsx,js,jsx}',
   ],
   theme: {
     extend: {
       colors: {
         brand: { ...emerald },
         surface: {
-          0: '#FFFFFF',
-          100: '#F9FAFB',
+          0: '#F9FAFB',
+          100: '#FFFFFF',
           900: '#0F172A',
         },
       },
       borderRadius: { xl: '1.25rem' },
-      boxShadow: { card: '0 2px 8px 0 rgb(0 0 0 / 0.08)' },
+      boxShadow: { card: '0 2px 8px 0 rgb(0 0 0 / 0.06)' },
     },
   },
   plugins: [require('@tailwindcss/forms')],
