@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 
 interface Customer {
@@ -20,23 +20,32 @@ export default function CustomersPage() {
   const { data, isLoading, error } = useQuery<Customer[], Error>(
     ['customers'], fetchCustomers
   )
-  const delMut = useMutation((id: string) => axios.delete(`/api/customers/${id}`), {
-    mutationFn: (id: string) => axios.delete(`/api/customers?id=${id}`),
-   onMutate: async (id: string) => {
-     await queryClient.cancelQueries(['customers'])
-     const previous = queryClient.getQueryData<Customer[]>(['customers'])
-    queryClient.setQueryData<Customer[]>(
-       ['customers'],
-       old => old?.filter(c => c.id !== id) ?? []
-     )
-     return { previous }
-   },
-   onError: (_err, _id, context: any) => {
-     if (context?.previous) {
-       queryClient.setQueryData(['customers'], context.previous)
-     }
-   },
- })
+const delMut = useMutation<
+  AxiosResponse<any>,   // 1. Typ des Rückgabewerts von axios.delete
+  Error,                // 2. Typ des Fehlers
+  string                // 3. Typ der Variablen (hier die ID)
+>(
+  (id: string) => axios.delete(`/api/customers?id=${id}`),
+  {
+    // 1) Optimistic Update vorbereiten
+    onMutate: async (id) => {
+      await queryClient.cancelQueries(['customers'])
+      const previous = queryClient.getQueryData<Customer[]>(['customers'])
+      queryClient.setQueryData<Customer[]>(
+        ['customers'],
+        old => old?.filter(c => c.id !== id) ?? []
+      )
+      return { previous }
+    },
+    // 2) Wenn Fehler: Zustand zurücksetzen
+    onError: (_err, _id, context) => {
+      if (context?.previous) {
+        queryClient.setQueryData(['customers'], context.previous)
+      }
+    },
+    // 3) bei Erfolg nichts tun (kein Refetch)
+  }
+)
   if (isLoading) return <p>Loading Kunden…</p>
   if (error)     return <p>Fehler: {error.message}</p>
 
