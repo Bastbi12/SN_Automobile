@@ -1,7 +1,7 @@
 'use client'
-import React from 'react';
-import axios from 'axios';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import React from 'react'
+import axios from 'axios'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 
 // 1) Interface für unser Fahrzeug-Datenobjekt
 interface Vehicle {
@@ -19,33 +19,41 @@ async function fetchVehicles(): Promise<Vehicle[]> {
 
 export default function VehiclesPage() {
   const queryClient = useQueryClient();
-  const { data, isLoading, error } = useQuery<Vehicle[], Error>(
+ const { data, isLoading, error } = useQuery<Vehicle[], Error>(
    ['vehicles'],
-    fetchVehicles
- );
+   fetchVehicles,
+   {
+     // Data gilt für 5 Minuten als frisch → kein automatisches Nachladen
+     staleTime: 1000 * 60 * 5,
+     // auch beim Wechseln des Tabs nicht nachladen
+     refetchOnWindowFocus: false,
+     refetchOnMount: false,
+   }
+ )
 
   const deleteMutation = useMutation({
   mutationFn: (id: string) => axios.delete(`/api/vehicles?id=${id}`),
-   // 1) Optimistic Update: lösche das Vehicle sofort aus dem Cache
+
+  // 1) Optimistic Update: sofort aus Cache löschen
   onMutate: async (id: string) => {
-     // laufende Fetches abbrechen
-     await queryClient.cancelQueries(['vehicles'])
-     // alten Cache sichern
-     const previous = queryClient.getQueryData<Vehicle[]>(['vehicles'])
-     // und sofort ausblenden
-     queryClient.setQueryData<Vehicle[]>(
+    await queryClient.cancelQueries(['vehicles'])
+    const previous = queryClient.getQueryData<Vehicle[]>(['vehicles'])
+    queryClient.setQueryData<Vehicle[]>(
       ['vehicles'],
-       old => old?.filter(v => v.id !== id) ?? []
+      old => old?.filter(v => v.id !== id) ?? []
     )
-     return { previous }   },
-  // falls das Delete fehlschlägt, restore
+    return { previous }
+  },
+
+  // 2) falls was schiefgeht → restore
   onError: (_err, _id, context: any) => {
-     if (context?.previous) {
-       queryClient.setQueryData(['vehicles'], context.previous)
-     }
-   },
-   // kein InvalidateQueries mehr, sonst würdest du die originale Liste neu laden
- })
+    if (context?.previous) {
+      queryClient.setQueryData(['vehicles'], context.previous)
+    }
+  },
+
+  // 3) kein InvalidateQueries mehr! Wir wollen nicht direkt neu laden.
+})
 
  if (isLoading) return <p>Loading Fahrzeuge…</p>;
  if (error)     return <p>Fehler: {error.message}</p>;
