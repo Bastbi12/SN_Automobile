@@ -21,9 +21,22 @@ export default function CustomersPage() {
     ['customers'], fetchCustomers
   )
   const delMut = useMutation((id: string) => axios.delete(`/api/customers/${id}`), {
-    onSuccess: () => qc.invalidateQueries(['customers'])
-  })
-
+    mutationFn: (id: string) => axios.delete(`/api/customers?id=${id}`),
+   onMutate: async (id: string) => {
+     await queryClient.cancelQueries(['customers'])
+     const previous = queryClient.getQueryData<Customer[]>(['customers'])
+    queryClient.setQueryData<Customer[]>(
+       ['customers'],
+       old => old?.filter(c => c.id !== id) ?? []
+     )
+     return { previous }
+   },
+   onError: (_err, _id, context: any) => {
+     if (context?.previous) {
+       queryClient.setQueryData(['customers'], context.previous)
+     }
+   },
+ })
   if (isLoading) return <p>Loading Kunden…</p>
   if (error)     return <p>Fehler: {error.message}</p>
 
