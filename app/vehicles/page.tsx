@@ -1,26 +1,28 @@
 'use client'
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import axios from 'axios'
-import React from 'react'
+import React from 'react';
+import axios from 'axios';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
+// 1) Interface für unser Fahrzeug-Datenobjekt
 interface Vehicle {
-  id: string
-  make: string
-  model: string
-  year: number
+  id:     string;
+  make:   string;
+  model:  string;
+  year:   number;
 }
 
+// 2) Fetch-Funktion: ruft /api/vehicles ab und liefert das Array
 async function fetchVehicles(): Promise<Vehicle[]> {
-  const res = await axios.get('/api/vehicles')
-  return res.data
+  const res = await axios.get('/api/vehicles');
+  return res.data;
 }
 
 export default function VehiclesPage() {
-  const queryClient = useQueryClient()
-  const { data, isLoading, error } = useQuery<Vehicle[], Error>({
-    queryKey: ['vehicles'],
-    queryFn: fetchVehicles,
-  })
+  const queryClient = useQueryClient();
+  const { data, isLoading, error } = useQuery<Vehicle[], Error>(
+   ['vehicles'],
+    fetchVehicles
+ );
 
   const deleteMutation = useMutation({
     mutationFn: (id: string) => axios.delete(`/api/vehicles/${id}`),
@@ -29,8 +31,8 @@ export default function VehiclesPage() {
     },
   })
 
-  if (isLoading) return <p>Loading…</p>
-  if (error) return <p>Error: {error.message}</p>
+ if (isLoading) return <p>Loading Fahrzeuge…</p>;
+ if (error)     return <p>Fehler: {error.message}</p>;
 
   return (
     <div>
