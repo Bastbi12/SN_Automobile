@@ -25,11 +25,27 @@ export default function VehiclesPage() {
  );
 
   const deleteMutation = useMutation({
-    mutationFn: (id: string) => axios.delete(`/api/vehicles?id=${id}`),
-    onSuccess: () => {
-      queryClient.invalidateQueries(['vehicles'])
-    },
-  })
+  mutationFn: (id: string) => axios.delete(`/api/vehicles?id=${id}`),
+   // 1) Optimistic Update: lösche das Vehicle sofort aus dem Cache
+  onMutate: async (id: string) => {
+     // laufende Fetches abbrechen
+     await queryClient.cancelQueries(['vehicles'])
+     // alten Cache sichern
+     const previous = queryClient.getQueryData<Vehicle[]>(['vehicles'])
+     // und sofort ausblenden
+     queryClient.setQueryData<Vehicle[]>(
+      ['vehicles'],
+       old => old?.filter(v => v.id !== id) ?? []
+    )
+     return { previous }   },
+  // falls das Delete fehlschlägt, restore
+  onError: (_err, _id, context: any) => {
+     if (context?.previous) {
+       queryClient.setQueryData(['vehicles'], context.previous)
+     }
+   },
+   // kein InvalidateQueries mehr, sonst würdest du die originale Liste neu laden
+ })
 
  if (isLoading) return <p>Loading Fahrzeuge…</p>;
  if (error)     return <p>Fehler: {error.message}</p>;
