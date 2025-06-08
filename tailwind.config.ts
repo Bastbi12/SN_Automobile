@@ -3,7 +3,11 @@ import { emerald } from 'tailwindcss/colors';
 
 export default <Config>{
   darkMode: 'class',
-  content: ['./app/**/*.{ts,tsx}', './components/**/*.{ts,tsx}', './modules/**/*.{ts,tsx}'],
+  content: [
+  './app/**/*.{ts,tsx,js,jsx}',      
+  './components/**/*.{ts,tsx,js,jsx}',
+  './modules/**/*.{ts,tsx,js,jsx}',
+  ],
   theme: {
     extend: {
       colors: {
