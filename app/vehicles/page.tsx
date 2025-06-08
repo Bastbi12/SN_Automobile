@@ -25,7 +25,7 @@ export default function VehiclesPage() {
  );
 
   const deleteMutation = useMutation({
-    mutationFn: (id: string) => axios.delete(`/api/vehicles/${id}`),
+    mutationFn: (id: string) => axios.delete(`/api/vehicles?id=${id}`),
     onSuccess: () => {
       queryClient.invalidateQueries(['vehicles'])
     },
