@@ -12,11 +12,7 @@ module.exports = {
     extend: {
       colors: {
         brand: { ...emerald },
-        surface: {
-          0: '#FFFFFF',
-          100: '#F9FAFB',
-          900: '#0F172A',
-        },
+        surface: { 0: '#FFFFFF', 100: '#F9FAFB', 900: '#0F172A' },
       },
       borderRadius: { xl: '1.25rem' },
       boxShadow: { card: '0 2px 8px 0 rgb(0 0 0 / 0.08)' },
