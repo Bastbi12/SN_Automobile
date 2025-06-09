@@ -12,10 +12,11 @@ import { cn } from '@/lib/utils'
 import { Inter } from 'next/font/google'
 
 const inter = Inter({ subsets: ['latin'], display: 'swap' })
-const queryClient = new QueryClient()
 
 export default function RootLayout({ children }: { children: ReactNode }) {
+  const queryClient = new QueryClient
   const pathname = usePathname()
+
 
   return (
     <html lang="de" suppressHydrationWarning>
