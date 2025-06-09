@@ -63,12 +63,51 @@ function SiteHeader({ pathname }: { pathname: string }) {
         <Link href="/" className="font-semibold text-xl">
           SN-Automobile
         </Link>
-        <nav className="flex gap-4 text-sm">
-          <HeaderLink href="/dashboard" label="Dashboard" pathname={pathname} />
-          <HeaderLink href="/vehicles" label="Fahrzeuge" pathname={pathname} />
-          <HeaderLink href="/customers" label="Kunden" pathname={pathname} />
-          <HeaderLink href="/calendar" label="Kalender" pathname={pathname} />
-        </nav>
+        <nav className="flex flex-col space-y-2 px-4">
+  <Link
+    href="/dashboard"
+    className={`px-3 py-2 rounded-lg ${
+      pathname === '/dashboard'
+        ? 'bg-emerald-100 dark:bg-emerald-800 font-semibold'
+        : 'hover:bg-gray-100 dark:hover:bg-gray-800'
+    }`}
+  >
+    Dashboard
+  </Link>
+
+  <Link
+    href="/vehicles"
+    className={`px-3 py-2 rounded-lg ${
+      pathname === '/vehicles'
+        ? 'bg-emerald-100 dark:bg-emerald-800 font-semibold'
+        : 'hover:bg-gray-100 dark:hover:bg-gray-800'
+    }`}
+  >
+    Fahrzeuge
+  </Link>
+
+  <Link
+    href="/customers"
+    className={`px-3 py-2 rounded-lg ${
+      pathname === '/customers'
+        ? 'bg-emerald-100 dark:bg-emerald-800 font-semibold'
+        : 'hover:bg-gray-100 dark:hover:bg-gray-800'
+    }`}
+  >
+    Kunden
+  </Link>
+
+  <Link
+    href="/calendar"
+    className={`px-3 py-2 rounded-lg ${
+      pathname === '/calendar'
+        ? 'bg-emerald-100 dark:bg-emerald-800 font-semibold'
+        : 'hover:bg-gray-100 dark:hover:bg-gray-800'
+    }`}
+  >
+    Kalender
+  </Link>
+</nav>
         <ThemeToggle />
       </div>
     </header>
