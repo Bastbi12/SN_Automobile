@@ -7,12 +7,14 @@ import { Inter } from 'next/font/google'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Toaster } from '@/components/ui/toaster'
 import ThemeToggle from '@/components/ui/theme-toggle'
+import { usePathname } from 'next/navigation'
 import { ThemeProvider } from 'next-themes'
 
 const inter = Inter({ subsets: ['latin'], display: 'swap' })
 const queryClient = new QueryClient()
 
 export default function RootLayout({ children }: { children: ReactNode }) {
+  const pathname = usePathname()
   return (
     <html lang="de" suppressHydrationWarning>
       <body className={`${inter.className} min-h-screen bg-surface-0 text-gray-900 dark:bg-surface-900 dark:text-gray-100 antialiased`}>
@@ -37,12 +39,45 @@ function SiteHeader() {
         <Link href="/" className="font-semibold text-xl">
           SN-Automobile
         </Link>
-        <nav className="flex gap-6 text-sm">
-          <Link href="/dashboard" className="hover:underline">Dashboard</Link>
-          <Link href="/vehicles" className="hover:underline">Fahrzeuge</Link>
-          <Link href="/customers" className="hover:underline">Kunden</Link>
-          <Link href="/calendar" className="hover:underline">Kalender</Link>
-        </nav>
+        <nav className="flex flex-col space-y-2 px-4">
+          <Link href="/Dashboard" className="hover:underline">Dashboard</Link>
+          <nav className="flex flex-col space-y-2 px-4">
+  <Link
+    href="/vehicles"
+    className={`
+      py-2 px-3 rounded-lg
+      ${pathname === '/vehicles'
+        ? 'bg-emerald-100 dark:bg-surface-800'
+        : 'hover:bg-emerald-100 dark:hover:bg-surface-800'}
+    `}
+  >
+    Fahrzeuge
+  </Link>
+
+  <Link
+    href="/customers"
+    className={`
+      py-2 px-3 rounded-lg
+      ${pathname === '/customers'
+        ? 'bg-emerald-100 dark:bg-surface-800'
+        : 'hover:bg-emerald-100 dark:hover:bg-surface-800'}
+    `}
+  >
+    Kunden
+  </Link>
+
+  <Link
+    href="/calendar"
+    className={`
+      py-2 px-3 rounded-lg
+      ${pathname === '/calendar'
+        ? 'bg-emerald-100 dark:bg-surface-800'
+        : 'hover:bg-emerald-100 dark:hover:bg-surface-800'}
+    `}
+  >
+    Kalender
+  </Link>
+</nav>
        <ThemeToggle />
       </div>
     </header>
