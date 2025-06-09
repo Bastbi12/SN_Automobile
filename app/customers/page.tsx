@@ -22,9 +22,10 @@ export default function CustomersPage() {
     queryFn: fetchCustomers,
   })
 const delMut = useMutation<
-  AxiosResponse<any>,   // 1. Typ des Rückgabewerts von axios.delete
-  Error,                // 2. Typ des Fehlers
-  string                // 3. Typ der Variablen (hier die ID)
+  AxiosResponse<any>,
+  Error,
+  string,
+  { previous?: Customer[] }
 >(
   (id: string) => axios.delete(`/api/customers?id=${id}`),
   {
