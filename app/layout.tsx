@@ -21,7 +21,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body className={`${inter.className} min-h-screen bg-surface-0 text-gray-900 dark:bg-surface-900 dark:text-gray-100 antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
           <QueryClientProvider client={queryClient}>
-            {/* Sidebar + Header */}
             <div className="flex">
               <aside className="w-60 h-screen border-r border-gray-200 dark:border-gray-800 bg-surface-50 dark:bg-surface-900 p-6">
                 <h1 className="text-2xl font-bold mb-8">SN-Automobile</h1>
@@ -68,8 +67,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                   </Link>
                 </nav>
               </aside>
-
-              {/* Main Content Area */}
               <main className="flex-1 p-8">
                 <div className="flex justify-end mb-4">
                   <ThemeToggle />
@@ -77,7 +74,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                 {children}
               </main>
             </div>
-
             <Toaster />
           </QueryClientProvider>
         </ThemeProvider>
