@@ -38,6 +38,7 @@ function SiteHeader() {
           SN-Automobile
         </Link>
         <nav className="flex gap-6 text-sm">
+          <Link href="/dashboard" className="hover:underline">Dashboard</Link>
           <Link href="/vehicles" className="hover:underline">Fahrzeuge</Link>
           <Link href="/customers" className="hover:underline">Kunden</Link>
           <Link href="/calendar" className="hover:underline">Kalender</Link>
