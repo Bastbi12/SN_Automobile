@@ -16,10 +16,11 @@ async function fetchCustomers(): Promise<Customer[]> {
 }
 
 export default function CustomersPage() {
-  const qc = useQueryClient()
-  const { data, isLoading, error } = useQuery<Customer[], Error>(
-    ['customers'], fetchCustomers
-  )
+  const queryClient = useQueryClient()
+  const { data, isLoading, error } = useQuery<Customer[], Error>({
+    queryKey: ['customers'],
+    queryFn: fetchCustomers,
+  })
 const delMut = useMutation<
   AxiosResponse<any>,   // 1. Typ des Rückgabewerts von axios.delete
   Error,                // 2. Typ des Fehlers
@@ -27,7 +28,6 @@ const delMut = useMutation<
 >(
   (id: string) => axios.delete(`/api/customers?id=${id}`),
   {
-    // 1) Optimistic Update vorbereiten
     onMutate: async (id) => {
       await queryClient.cancelQueries(['customers'])
       const previous = queryClient.getQueryData<Customer[]>(['customers'])
@@ -37,13 +37,11 @@ const delMut = useMutation<
       )
       return { previous }
     },
-    // 2) Wenn Fehler: Zustand zurücksetzen
     onError: (_err, _id, context) => {
       if (context?.previous) {
         queryClient.setQueryData(['customers'], context.previous)
       }
     },
-    // 3) bei Erfolg nichts tun (kein Refetch)
   }
 )
   if (isLoading) return <p>Loading Kunden…</p>
