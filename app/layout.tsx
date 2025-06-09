@@ -27,6 +27,20 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <Toaster />
           </QueryClientProvider>
         </ThemeProvider>
+        function SiteHeader() {
+  return (
+    <header className="sticky top-0 bg-white dark:bg-gray-900 border-b dark:border-gray-700 p-4">
+      <nav className="max-w-7xl mx-auto flex items-center justify-between">
+        <div className="text-xl font-bold">SN-Automobile</div>
+        <ul className="flex space-x-6">
+          <li><Link href="/vehicles">Fahrzeuge</Link></li>
+          <li><Link href="/customers">Kunden</Link></li>
+          <li><Link href="/calendar">Kalender</Link></li>
+        </ul>
+      </nav>
+    </header>
+  );
+}
       </body>
     </html>
   );
