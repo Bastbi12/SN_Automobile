@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { Inter } from 'next/font/google'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Toaster } from '@/components/ui/toaster'
+import ThemeToggle from '@/components/ui/theme-toggle'
 import { ThemeProvider } from 'next-themes'
 
 const inter = Inter({ subsets: ['latin'], display: 'swap' })
@@ -41,24 +42,10 @@ function SiteHeader() {
           <Link href="/customers" className="hover:underline">Kunden</Link>
           <Link href="/calendar" className="hover:underline">Kalender</Link>
         </nav>
-        {/* falls Du einen Theme-Toggle hast, sonst entferne die nächste Zeile */}
-        {/* <ThemeToggle /> */}
+       <ThemeToggle />
       </div>
     </header>
   )
 }
 
-// Einfache Toggle-Schaltfläche: wechselt zwischen hell & dunkel
-function ThemeToggle() {
-  return (
-    <button
-      onClick={() => {
-        document.documentElement.classList.toggle('dark');
-      }}
-      className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-surface-100 text-gray-600 shadow-card hover:bg-brand-50 dark:bg-surface-900 dark:text-gray-300 dark:hover:bg-surface-800"
-      aria-label="Theme wechseln"
-    >
-      🌗
-    </button>
-  );
-}
+
