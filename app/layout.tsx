@@ -1,9 +1,9 @@
 'use client'
 
+import { usePathname } from 'next/navigation'
 import '../styles/globals.css'
 import { ReactNode } from 'react'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import Toaster from '@/components/ui/toaster'
 import ThemeToggle from '@/components/ui/theme-toggle'
